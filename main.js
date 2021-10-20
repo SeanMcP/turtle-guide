@@ -46,6 +46,24 @@
       position[0] = Math.floor(Math.random() * max.x);
       position[1] = 0;
     }
+
+    // Add obstacles
+    const startingObstacleCount = 8;
+    for (let _ = 0; _ < score + startingObstacleCount; _++) {
+      let coordinates = "-1,-1";
+
+      while (!map[coordinates] || map[coordinates].content) {
+        coordinates =
+          Math.floor(Math.random() * max.x) +
+          "," +
+          Math.floor(Math.random() * max.y);
+      }
+
+      map[coordinates].content = "obstacle";
+      // A roughly even split of trees and rocks
+      map[coordinates].element.textContent =
+        _ < Math.floor((startingObstacleCount + score) / 2) ? "🌴" : "🪨";
+    }
   }
 
   function winCheck() {
@@ -73,7 +91,7 @@
   function handleKeydown(event) {
     previousPosition = [...position];
     let didMove = false;
-    
+
     switch (event.key) {
       case "ArrowDown": {
         event.preventDefault();
