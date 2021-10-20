@@ -1,0 +1,64 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+}
+
+main {
+  text-align: center;
+}
+
+header {
+  align-items: center;
+  display: inline-flex;
+}
+
+header h1 {
+  font-size: 1rem;
+  margin-right: 1ch;
+}
+
+#game {
+  border: 2px solid hsl(0, 0%, 80%);
+  border-radius: 2px;
+  display: inline-grid;
+  gap: 2px;
+  grid-auto-flow: column;
+  justify-content: center;
+  padding: 2px;
+}
+
+#game > * {
+  align-items: center;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  height: var(--cellSize);
+  width: var(--cellSize);
+  font-size: calc(var(--cellSize) * 0.6);
+}
+
+#game [data-touched] {
+  --step: 4%;
+  --lightness: calc(100% - 7 * var(--step));
+  background-color: hsl(0, 0%, var(--lightness));
+}
+
+#game [data-touched="1"] {
+  --lightness: calc(100% - 1 * var(--step));
+}
+#game [data-touched="2"] {
+  --lightness: calc(100% - 2 * var(--step));
+}
+#game [data-touched="3"] {
+  --lightness: calc(100% - 3 * var(--step));
+}
+#game [data-touched="4"] {
+  --lightness: calc(100% - 4 * var(--step));
+}
+#game [data-touched="5"] {
+  --lightness: calc(100% - 5 * var(--step));
+}
+#game [data-touched="6"] {
+  --lightness: calc(100% - 6 * var(--step));
+}
