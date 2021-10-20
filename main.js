@@ -52,40 +52,52 @@
     return position.join(",") === destination.join(",");
   }
 
+  function move(x = 0, y = 0) {
+    const nextPosition = [position[0] + x, position[1] + y];
+
+    if (
+      nextPosition[0] >= 0 &&
+      nextPosition[0] < max.x &&
+      nextPosition[1] >= 0 &&
+      nextPosition[1] < max.y &&
+      map[nextPosition.join(",")].content !== "obstacle"
+    ) {
+      position[0] = nextPosition[0];
+      position[1] = nextPosition[1];
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   function handleKeydown(event) {
     previousPosition = [...position];
+    let didMove = false;
+    
     switch (event.key) {
       case "ArrowDown": {
         event.preventDefault();
-        if (position[1] > 0) {
-          position[1]--;
-        }
+        didMove = move(undefined, -1);
         break;
       }
       case "ArrowLeft": {
         event.preventDefault();
-        if (position[0] > 0) {
-          position[0]--;
-        }
+        didMove = move(-1);
         break;
       }
       case "ArrowRight": {
         event.preventDefault();
-        if (position[0] < max.x - 1) {
-          position[0]++;
-        }
+        didMove = move(1);
         break;
       }
       case "ArrowUp": {
         event.preventDefault();
-        if (position[1] < max.y - 1) {
-          position[1]++;
-        }
+        didMove = move(undefined, 1);
         break;
       }
     }
 
-    if (previousPosition.join(",") !== position.join(",")) {
+    if (didMove) {
       paint();
       if (winCheck()) {
         alert("You won!");
