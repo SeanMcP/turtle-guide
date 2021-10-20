@@ -41,7 +41,6 @@ header h1 {
 #game [data-touched] {
   --step: 8%;
   --lightness: calc(100% - 6 * var(--step));
-  /* hsl(92, 100, 32) */
   background-color: hsl(92, 50%, var(--lightness));
 }
 
