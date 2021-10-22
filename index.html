@@ -14,11 +14,16 @@
   <body>
     <main>
       <header>
-        <h1>Turtle Guide</h1>
+        <h1>Turtle Guide:</h1>
         <p>Use the arrow keys to help the turtle get home.</p>
       </header>
-      <p>Score: <span id="score">0</span></p>
-      <div id="game"></div>
+      <div class="game-container">
+        <div class="stats">
+          <span>Level: <span id="level">0</span></span>
+          <span id="moves">0 moves</span>
+        </div>
+        <div id="game"></div>
+      </div>
     </main>
   </body>
   <script src="./main.js" type="module"></script>

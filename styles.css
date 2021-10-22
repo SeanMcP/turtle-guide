@@ -4,24 +4,38 @@ body {
   margin: 0;
 }
 
-main {
-  text-align: center;
-}
-
 header {
-  align-items: center;
-  display: inline-flex;
+  text-align: center;
+  padding: 10px 0;
 }
 
-header h1 {
+header > * {
+  display: inline;
   font-size: 1rem;
-  margin-right: 1ch;
+}
+
+.game-container {
+  display: grid;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.stats {
+  background: #333;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  color: white;
+  display: flex;
+  font-size: small;
+  justify-content: space-between;
+  padding: 2px 4px;
 }
 
 #game {
-  border: 2px solid hsl(0, 0%, 80%);
-  border-radius: 2px;
-  display: inline-grid;
+  border: 2px solid #333;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  display: grid;
   gap: 2px;
   grid-auto-flow: column;
   justify-content: center;
@@ -40,22 +54,6 @@ header h1 {
 
 #game [data-touched] {
   --step: 8%;
-  --lightness: calc(100% - 6 * var(--step));
-  background-color: hsl(92, 50%, var(--lightness));
-}
-
-#game [data-touched="1"] {
-  --lightness: calc(100% - 1 * var(--step));
-}
-#game [data-touched="2"] {
   --lightness: calc(100% - 2 * var(--step));
-}
-#game [data-touched="3"] {
-  --lightness: calc(100% - 3 * var(--step));
-}
-#game [data-touched="4"] {
-  --lightness: calc(100% - 4 * var(--step));
-}
-#game [data-touched="5"] {
-  --lightness: calc(100% - 5 * var(--step));
+  background-color: hsl(92, 50%, var(--lightness));
 }

@@ -1,7 +1,9 @@
 (function main() {
   const gameEl = document.getElementById("game");
-  const scoreEl = document.getElementById("score");
-  let score = 0;
+  const levelEl = document.getElementById("level");
+  const movesEl = document.getElementById("moves");
+  let level = 1;
+  let moves = 0;
   const position = [0, 0];
   let previousPosition;
   const destination = [0, 0];
@@ -48,8 +50,8 @@
     }
 
     // Add obstacles
-    const startingObstacleCount = 8;
-    for (let _ = 0; _ < score + startingObstacleCount; _++) {
+    const startingObstacleCount = 7;
+    for (let _ = 0; _ < level + startingObstacleCount; _++) {
       let coordinates = "-1,-1";
 
       while (!map[coordinates] || map[coordinates].content) {
@@ -62,7 +64,7 @@
       map[coordinates].content = "obstacle";
       // A roughly even split of trees and rocks
       map[coordinates].element.textContent =
-        _ < Math.floor((startingObstacleCount + score) / 2) ? "🌴" : "🪨";
+        _ < Math.floor((startingObstacleCount + level) / 2) ? "🌴" : "⛰";
     }
   }
 
@@ -113,16 +115,29 @@
         didMove = move(undefined, 1);
         break;
       }
+      case "R": {
+        event.preventDefault();
+        reset();
+        break;
+      }
     }
 
     if (didMove) {
+      moves++;
       paint();
-      if (winCheck()) {
-        alert("You won!");
-        score++;
-        scoreEl.textContent = score;
-        reset();
-      }
+      setTimeout(() => {
+        /**
+         * Without the timeout, the alert was appearing before
+         * paint() finished running. Very weird, but I didn't
+         * think it was worth debugging or coming up with a
+         * more sophisticated solution.
+         */
+        if (winCheck()) {
+          alert(`You won in ${moves} moves!`);
+          level++;
+          reset();
+        }
+      }, 0);
     }
   }
 
@@ -141,13 +156,17 @@
     next.content = "turtle";
     next.touched++;
     next.element.dataset.touched = next.touched;
-    next.element.textContent = "🐢";
+    if (!winCheck()) next.element.textContent = "🐢";
+
+    levelEl.textContent = level;
+    movesEl.textContent = `${moves} move${moves === 1 ? "" : "s"}`;
   }
 
   generatePositions();
   paint();
 
   function reset() {
+    moves = 0;
     previousPosition = undefined;
 
     Object.values(map).forEach((cell) => {
