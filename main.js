@@ -50,7 +50,7 @@
     }
 
     // Add obstacles
-    const startingObstacleCount = 7;
+    const startingObstacleCount = 10;
     for (let _ = 0; _ < level + startingObstacleCount; _++) {
       let coordinates = "-1,-1";
 
@@ -90,6 +90,23 @@
     }
   }
 
+  function munch() {
+    const n = [position[0], position[1] + 1],
+      e = [position[0] + 1, position[1]],
+      s = [position[0], position[1] - 1],
+      w = [position[0] - 1, position[1]];
+
+    for (let direction of [n, e, s, w]) {
+      const coordinates = direction.join(",");
+      if (map[coordinates] && map[coordinates].content === "obstacle") {
+        map[coordinates].content = null;
+        map[coordinates].element.textContent = "";
+        moves++;
+        break;
+      }
+    }
+  }
+
   function handleKeydown(event) {
     previousPosition = [...position];
     let didMove = false;
@@ -113,6 +130,11 @@
       case "ArrowUp": {
         event.preventDefault();
         didMove = move(undefined, 1);
+        break;
+      }
+      case " ": {
+        event.preventDefault();
+        munch();
         break;
       }
       case "R": {
