@@ -112,21 +112,25 @@
     let didMove = false;
 
     switch (event.key) {
+      case "s":
       case "ArrowDown": {
         event.preventDefault();
         didMove = move(undefined, -1);
         break;
       }
+      case "a":
       case "ArrowLeft": {
         event.preventDefault();
         didMove = move(-1);
         break;
       }
+      case "d":
       case "ArrowRight": {
         event.preventDefault();
         didMove = move(1);
         break;
       }
+      case "w":
       case "ArrowUp": {
         event.preventDefault();
         didMove = move(undefined, 1);
